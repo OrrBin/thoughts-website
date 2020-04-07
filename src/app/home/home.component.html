@@ -1,0 +1,11 @@
+
+<mat-card class="feelings-card">
+  <mat-card-header>
+    <mat-card-title>Users</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <a *ngFor="let user of users" [routerLink]="['/user-page', user.userId]" [hidden]="isLoading">
+      {{ user.username }} (id: {{ user.userId }})
+    </a>
+  </mat-card-content>
+</mat-card>

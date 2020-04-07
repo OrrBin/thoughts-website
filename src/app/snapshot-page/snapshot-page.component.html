@@ -1,0 +1,64 @@
+<div class="grid-container">
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card" *ngIf="hasFeelings()">
+          <mat-card-header>
+            <mat-card-title>
+              Feelings
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+                <app-feelings  [snapshotId]="snapshotId" [userId]="userId"></app-feelings>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card" *ngIf="hasPose()">
+          <mat-card-header>
+            <mat-card-title>
+              Pose
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+                <app-position></app-position>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card" *ngIf="hasColorImage()">
+          <mat-card-header>
+            <mat-card-title>
+              Color Image
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+                <app-image></app-image>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card" *ngIf="hasDepthImage()">
+          <mat-card-header>
+            <mat-card-title>
+              Depth Image
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+                <app-image></app-image>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
