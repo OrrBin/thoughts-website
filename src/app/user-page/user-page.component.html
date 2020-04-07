@@ -1,20 +1,20 @@
 <div class="grid-container">
+  <h1>Snapshots of user: {{ user.username }}</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="2" [rowspan]="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            Snapshots of user: {{ userId }}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>
+          <ul>
             <li *ngFor="let snapshot of snapshots">
-              <a [routerLink]="['/snapshot', userId, snapshot.snapshotId]" [hidden]="isLoading">
+              <a [routerLink]="['/snapshot', userId, snapshot.snapshotId, snapshot.date]" [hidden]="isLoading">
                 {{ timeString(snapshot.date) }}
               </a>
             </li>
-          </div>
+          </ul>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

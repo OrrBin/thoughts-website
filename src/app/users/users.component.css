@@ -18,4 +18,6 @@
 
 .dashboard-card-content {
   text-align: start;
+  height: 100%;
+   overflow-y: auto
 }

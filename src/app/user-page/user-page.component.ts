@@ -3,6 +3,8 @@ import { ThoughtsService } from '../core/services/thoughts.service';
 import { finalize } from 'rxjs/operators';
 import { SnapshotIndex } from '../core/objects/snapshot';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../core/objects/user';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-page',
@@ -11,19 +13,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserPageComponent implements OnInit {
   userId: number;
+  user: User;
   sub: any;
 
   snapshots: SnapshotIndex[] = [];
 
   isLoading = false;
 
-  constructor(private thoughtsSerivce: ThoughtsService, private route: ActivatedRoute) {}
+  constructor(private thoughtsSerivce: ThoughtsService, private route: ActivatedRoute, public datepipe: DatePipe) {}
 
   ngOnInit() {
     this.isLoading = true;
 
     this.sub = this.route.params.subscribe((params) => {
       this.userId = +params['id'];
+
+      this.thoughtsSerivce.getUser(this.userId)
+      .subscribe((user: User) => {
+        this.user = user;
+      });
 
       this.thoughtsSerivce
         .getSnapshots(this.userId)
@@ -42,6 +50,7 @@ export class UserPageComponent implements OnInit {
     let date = new Date();
     date.setTime(milliseconds);
 
-    return date.toLocaleDateString() + ', ' + date.toLocaleTimeString();
+    return this.datepipe.transform(date, 'yyyy/MM/dd HH:mm:ss SSS');
+
   }
 }

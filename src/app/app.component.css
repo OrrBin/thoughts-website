@@ -1,8 +1,7 @@
-html {
-  height: 100%;
+.example-icon {
+  padding: 0 18px;
 }
-body {
-  height: 100%;
-  margin: 0;
-  background-image: linear-gradient(aqua, white);
+
+.example-spacer {
+  flex: 1 1 auto;
 }

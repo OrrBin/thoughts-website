@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
@@ -20,13 +18,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+
+import { DatePipe } from '@angular/common';
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: UsersComponent },
   { path: 'user-page/:id', component: UserPageComponent },
-  { path: 'snapshot/:userId/:id', component: SnapshotPageComponent } ];
+  { path: 'snapshot/:userId/:id/:timestamp', component: SnapshotPageComponent } ];
 
 @NgModule({
   declarations: [
@@ -47,14 +50,16 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CommonModule,
     MatCardModule,
     MatGridListModule,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatToolbarModule,
     LayoutModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
