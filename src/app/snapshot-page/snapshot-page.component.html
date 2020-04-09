@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1>snapshot of {{user.username}} from {{timeString()}}</h1>
+  <h1 *ngIf="user">snapshot of {{user.username}} from {{timeString()}}</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card" *ngIf="hasFeelings()">
@@ -31,7 +31,7 @@
       </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
       <mat-card class="dashboard-card" *ngIf="hasColorImage()">
         <mat-card-header>
           <mat-card-title>
@@ -46,7 +46,7 @@
       </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
       <mat-card class="dashboard-card" *ngIf="hasDepthImage()">
         <mat-card-header>
           <mat-card-title>

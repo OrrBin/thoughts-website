@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1>Snapshots of user: {{ user.username }}</h1>
+  <h1 *ngIf="user">Snapshots of user: {{ user.username }}</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="2" [rowspan]="2">
       <mat-card class="dashboard-card">
