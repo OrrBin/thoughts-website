@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ThoughtsService } from '../core/services/thoughts.service';
 import { Feelings } from '../core/objects/feelings';
 import { finalize } from 'rxjs/operators';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-feelings',
@@ -18,7 +19,7 @@ export class FeelingsComponent implements OnInit {
   feelings: Feelings;
   isLoading = false;
 
-  constructor(private thoughtsSerivce: ThoughtsService) {}
+  constructor(private thoughtsSerivce: ThoughtsService, private number: DecimalPipe) {}
 
   ngOnInit() {
     this.isLoading = true;

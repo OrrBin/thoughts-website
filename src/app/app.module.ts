@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { LayoutModule } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { DatePipe } from '@angular/common';
 
@@ -60,7 +60,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     LayoutModule,
   ],
-  providers: [EnvServiceProvider, DatePipe],
+  providers: [EnvServiceProvider, DatePipe, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

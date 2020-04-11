@@ -1,6 +1,6 @@
 <div *ngIf="feelings">
-  <p>hunger: {{ feelings.hunger }}</p>
-  <p>thirst: {{ feelings.thirst }}</p>
-  <p>exhaustion: {{ feelings.exhaustion }}</p>
-  <p>happiness: {{ feelings.happiness }}</p>
+  <p>hunger: {{ feelings.hunger | number:'1.4' }}</p>
+  <p>thirst: {{ feelings.thirst | number:'1.4' }}</p>
+  <p>exhaustion: {{ feelings.exhaustion | number:'1.4' }}</p>
+  <p>happiness: {{ feelings.happiness | number:'1.4' }}</p>
 </div>
