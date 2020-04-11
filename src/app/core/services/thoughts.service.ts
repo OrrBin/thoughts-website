@@ -8,60 +8,54 @@ import { Feelings } from '../objects/feelings';
 import { Pose } from '../objects/pose';
 import { ColorImage } from '../objects/color_image';
 import { DepthImage } from '../objects/depth_image';
-
-const baseUrl = 'http://127.0.0.1:5000';
-
-export interface RandomQuoteContext {
-  // The quote's category: 'dev', 'explicit'...
-  category: string;
-}
+import { EnvService } from './env.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThoughtsService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private env: EnvService) {}
 
   getUsers(): Observable<UserIndex[]> {
-    return this.httpClient.get<UserIndex[]>(`${baseUrl}/users`);
+    return this.httpClient.get<UserIndex[]>(`${this.env.apiUrl}/users`);
   }
 
   getUser(userId: number):  Observable<User> {
-    return this.httpClient.get<User>(`${baseUrl}/users/${userId}`);
+    return this.httpClient.get<User>(`${this.env.apiUrl}/users/${userId}`);
   }
 
   getSnapshots(userId: number): Observable<SnapshotIndex[]> {
-    return this.httpClient.get<SnapshotIndex[]>(`${baseUrl}/users/${userId}/snapshots`);
+    return this.httpClient.get<SnapshotIndex[]>(`${this.env.apiUrl}/users/${userId}/snapshots`);
   }
 
   getSnapshot(userId: number, snapshotId: string): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${baseUrl}/users/${userId}/snapshots/${snapshotId}`);
+    return this.httpClient.get<string[]>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}`);
   }
 
   getFeelings(userId: number, snapshotId: string): Observable<Feelings> {
-    return this.httpClient.get<Feelings>(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/feelings`);
+    return this.httpClient.get<Feelings>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/feelings`);
   }
 
   getPose(userId: number, snapshotId: string): Observable<Pose> {
-    return this.httpClient.get<Pose>(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/pose`);
+    return this.httpClient.get<Pose>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/pose`);
   }
 
   getColorImage(userId: number, snapshotId: string): Observable<ColorImage> {
-    return this.httpClient.get<ColorImage>(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/color_image`);
+    return this.httpClient.get<ColorImage>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/color_image`);
   }
 
   getDepthImage(userId: number, snapshotId: string): Observable<DepthImage> {
-    return this.httpClient.get<DepthImage>(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/depth_image`);
+    return this.httpClient.get<DepthImage>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/depth_image`);
   }
 
   getColorImageData(userId: number, snapshotId: string): Observable<Blob> {
-    return this.httpClient.get(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/color_image/data`, {
+    return this.httpClient.get(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/color_image/data`, {
       responseType: "blob"
     });
   }
 
   getDepthImageData(userId: number, snapshotId: string): Observable<Blob> {
-    return this.httpClient.get(`${baseUrl}/users/${userId}/snapshots/${snapshotId}/depth_image/data`, {
+    return this.httpClient.get(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/depth_image/data`, {
       responseType: "blob"
     });
   }

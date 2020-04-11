@@ -24,6 +24,8 @@ import { CommonModule } from '@angular/common';
 
 import { DatePipe } from '@angular/common';
 
+import { EnvServiceProvider } from './core/services/env.service.provider';
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -58,7 +60,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     LayoutModule,
   ],
-  providers: [DatePipe],
+  providers: [EnvServiceProvider, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
