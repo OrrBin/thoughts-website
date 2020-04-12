@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ThoughtsService } from '../core/services/thoughts.service';
-import { ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize, catchError } from 'rxjs/operators';
 import { User } from '../core/objects/user';
 import { DatePipe } from '@angular/common';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-snapshot-page',
@@ -19,7 +20,10 @@ export class SnapshotPageComponent implements OnInit {
   products: string[];
   isLoading = false;
 
-  constructor(private thoughtsSerivce: ThoughtsService, private route: ActivatedRoute, private datepipe: DatePipe) {}
+  isFirst = false;
+  isLast = false;
+
+  constructor(private thoughtsSerivce: ThoughtsService, private router: Router, private route: ActivatedRoute, private datepipe: DatePipe) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -30,9 +34,9 @@ export class SnapshotPageComponent implements OnInit {
       this.date.setTime(+params['timestamp']);
 
       this.thoughtsSerivce.getUser(this.userId)
-      .subscribe((user: User) => {
-        this.user = user;
-      });
+        .subscribe((user: User) => {
+          this.user = user;
+        });
 
       this.thoughtsSerivce
         .getSnapshot(this.userId, this.snapshotId)
@@ -41,10 +45,44 @@ export class SnapshotPageComponent implements OnInit {
           this.products = products;
         });
     });
+
+    this.thoughtsSerivce.getNextSnapshot(this.userId, this.snapshotId).subscribe(
+      snap => { },
+      error => {
+        this.isLast = true;
+      }
+    );
+    this.thoughtsSerivce.getPrevSnapshot(this.userId, this.snapshotId).subscribe(
+      snap => { },
+      error => {
+        this.isFirst = true;
+      }
+    );
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  navigateNextSnapshot() {
+    this.thoughtsSerivce.getNextSnapshot(this.userId, this.snapshotId).subscribe(snapshot => {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/snapshot', this.userId, snapshot.snapshotId, snapshot.date]);
+      });
+
+    });
+
+  }
+
+  navigatePrevSnapshot() {
+    this.thoughtsSerivce.getPrevSnapshot(this.userId, this.snapshotId).subscribe(snapshot => {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/snapshot', this.userId, snapshot.snapshotId, snapshot.date]);
+      });
+    });
+
   }
 
   timeString(): string {
@@ -70,5 +108,5 @@ export class SnapshotPageComponent implements OnInit {
     if (!this.products) return false;
     return this.products.find((p) => p == 'depth_image') != undefined;
   }
-  
+
 }

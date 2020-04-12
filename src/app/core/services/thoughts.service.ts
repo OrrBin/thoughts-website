@@ -32,6 +32,14 @@ export class ThoughtsService {
     return this.httpClient.get<string[]>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}`);
   }
 
+  getNextSnapshot(userId: number, snapshotId: string): Observable<SnapshotIndex> {
+    return this.httpClient.get<SnapshotIndex>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/next`);
+  }
+
+   getPrevSnapshot(userId: number, snapshotId: string): Observable<SnapshotIndex> {
+    return this.httpClient.get<SnapshotIndex>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/prev`);
+  }
+
   getFeelings(userId: number, snapshotId: string): Observable<Feelings> {
     return this.httpClient.get<Feelings>(`${this.env.apiUrl}/users/${userId}/snapshots/${snapshotId}/feelings`);
   }
