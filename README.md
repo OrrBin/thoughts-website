@@ -1,5 +1,11 @@
 # ThoughtsApp
 
+A GUI for the Thoughts platform (https://github.com/OrrBin/thoughts).
+Project let te user browse through the thoughts of all registered user.
+
+## Note
+The `env.js` is a configuration file. The variable `window.__env.apiUrl` defines the thoughts api url, and can be changed also in runtime tnd the changes would reflect the next time you refresh your browser. this is true also for production deployment.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
 ## Development server
